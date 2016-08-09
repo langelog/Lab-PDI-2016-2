@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>PDI 2016-2 by langelog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">PDI 2016-2</h1>
+      <h2 class="project-tagline">Repositorio para archivos pesados</h2>
+      <a href="https://github.com/langelog/Lab-PDI-2016-2" class="btn">View on GitHub</a>
+      <a href="https://github.com/langelog/Lab-PDI-2016-2/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/langelog/Lab-PDI-2016-2/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="guías-de-instalación-de-herramientas" class="anchor" href="#gu%C3%ADas-de-instalaci%C3%B3n-de-herramientas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Guías de Instalación de herramientas</h1>
+
+<p>Aqui encontrarás guías para instalación de herramientas a utilizar en el laboratorio de PDI-2016-2</p>
+
+<h2>
+<a id="para-windows-7-" class="anchor" href="#para-windows-7-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Para Windows 7 +</h2>
+
+<p>In progress</p>
+
+<h2>
+<a id="para-ubuntu-14041604" class="anchor" href="#para-ubuntu-14041604" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Para Ubuntu 14.04/16.04</h2>
+
+<h3>
+<a id="instalación-de-algunas-herramientas-de-desarrollador" class="anchor" href="#instalaci%C3%B3n-de-algunas-herramientas-de-desarrollador" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instalación de algunas herramientas de desarrollador</h3>
+
+<div class="highlight highlight-source-shell"><pre>$ sudo apt-get install -y build-essential cmake libv4l-dev pkg-config libgtk2.0-dev \
+                          libtiff5-dev libjasper-dev libavformat-dev libswscale-dev \
+                          libavcodec-dev libjpeg8-dev git python-dev python-numpy \
+                          libtbb2 libtbb-dev libpng-dev libdc1394-22-dev</pre></div>
+
+<h3>
+<a id="instalación-de-qtcreator" class="anchor" href="#instalaci%C3%B3n-de-qtcreator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instalación de QtCreator</h3>
+
+<p>Puedes descargar la instalación directamente de la <a href="https://www.qt.io/download-open-source">pagina oficial</a>. Se recomienda descargar la instalación offline, ya que debido al peso de Qt, es probable que si surgen problemas de conexión durante la instalación este quede mal instalado.
+Si la descarga está muy lenta desde el sitio oficial de Qt, prueba descargar la version que hay disponible en este <a href="http://alumnos.elo.utfsm.cl/%7Eluis.gonzalezo/qt-opensource-linux-x64-5.7.0.run">mirror UTFSM de QtCreator 5.7 x64 Linux</a></p>
+
+<p>Recuerda que para ejecutar este archivo desde linux, primero debes agregarle permisos de ejecución:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ chmod +x /path/to/your/file.run</pre></div>
+
+<h3>
+<a id="instalación-de-opencv" class="anchor" href="#instalaci%C3%B3n-de-opencv" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Instalación de OpenCV</h3>
+
+<ul>
+<li>Clonar la hebra principal del repositorio oficial de OpenCV:</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span>
+$ mkdir -p OpenCV-3.0.0/OpenCV-3.0.0-master
+$ <span class="pl-c1">cd</span> OpenCV-3.0.0/OpenCV-3.0.0-master
+$ git clone https://github.com/Itseez/opencv.git</pre></div>
+
+<ul>
+<li>Clonar la hebra "contrib" del repositorio oficial de OpenCV:</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> <span class="pl-k">~</span>/OpenCV-3.0.0
+$ mkdir OpenCV-3.0.0-contrib
+$ <span class="pl-c1">cd</span> OpenCV-3.0.0-contrib
+$ git clone https://github.com/Itseez/opencv_contrib.git</pre></div>
+
+<ul>
+<li>Compilar el codigo fuente de OpenCV, en conjunto con contrib:</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>$ <span class="pl-c1">cd</span> <span class="pl-k">~</span>/OpenCV-3.0.0/OpenCV-3.0.0-master/opencv
+$ mkdir build <span class="pl-k">&amp;&amp;</span> <span class="pl-c1">cd</span> build
+$ cmake -D CMAKE_BUILD_TYPE=Release -D OPENCV_EXTRA_MODULES_PATH=/home/<span class="pl-smi">${USER}</span>/OpenCV-3.0.0/OpenCV-3.0.0-contrib/opencv_contrib/modules -D CMAKE_INSTALL_PREFIX=/usr/local ..
+$ make -j<span class="pl-s"><span class="pl-pds">$(</span>nproc<span class="pl-pds">)</span></span>
+$ sudo make install
+$ sudo ldconfig</pre></div>
+
+<ul>
+<li>Finalmente para utilizar la biblioteca de OpenCV, agregar la siguiente línea en el archivo .pro del proyecto en QtCreator:</li>
+</ul>
+
+<div class="highlight highlight-source-shell"><pre>LIBS += <span class="pl-s"><span class="pl-pds">`</span>pkg-config --cflags --libs opencv<span class="pl-pds">`</span></span></pre></div>
+
+<h3>
+<a id="para-osx-el-capitán" class="anchor" href="#para-osx-el-capit%C3%A1n" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Para OSX El Capitán</h3>
+
+<p>In progress</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/langelog/Lab-PDI-2016-2">PDI 2016-2</a> is maintained by <a href="https://github.com/langelog">langelog</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
